@@ -43,7 +43,20 @@ get("/payment/results") do
 @payment = @numerator / @denominator
 
 @display_apr = (params.fetch("apr").to_f).round(5).to_fs(:percentage)
+@display_year = params.fetch("num_year")
 @display_amount = (params.fetch("num_amount").to_f).to_fs(:currency)
 @display_payment = (@numerator / @denominator).to_fs(:currency)
 erb(:payment_results)
+end
+
+get("/random/new") do
+  erb(:new_random_calc)
+end
+
+get("/random/results") do
+  @min = params.fetch("min").to_f
+  @max = params.fetch("max").to_f
+
+  @random = rand(@min..@max)
+  erb(:random_results)
 end
