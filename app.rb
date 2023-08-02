@@ -42,8 +42,14 @@ get("/payment/results") do
 
 @payment = @numerator / @denominator
 
-@display_apr = (params.fetch("apr").to_f).round(5).to_fs(:percentage)
-@display_year = params.fetch("num_year")
+if params.fetch("num_year").length > 0 
+  @display_year = params.fetch("num_year")
+else 
+  @display_year = "0"
+end
+
+#@display_apr = (params.fetch("apr").to_f).round(4).to_fs(:percentage)
+@display_apr = result = format("%.4f", (params.fetch("apr").to_f))
 @display_amount = (params.fetch("num_amount").to_f).to_fs(:currency)
 @display_payment = (@numerator / @denominator).to_fs(:currency)
 erb(:payment_results)
